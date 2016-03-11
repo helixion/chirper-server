@@ -19,6 +19,14 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 //setup body-parser
 app.use(bodyParser.json());
 
+//set headers for our front end()
+app.use(function(req,res,next) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+    res.header("Access-Control-Allow-Origin", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Origin", 'POST, GET, PUT, DELETE, OPTIONS');
+    next();
+});
+
 //setup mongoose
 mongoose.connect('mongodb://' + config.MONGO_URL + ':' + config.MONGO_PORT + '/' + config.MONGO_DB, function(err) {
     if (err) { return err; }
